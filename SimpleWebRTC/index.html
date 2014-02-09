@@ -1,0 +1,85 @@
+<html>
+
+<head>
+  <title>SimpleWebRTC Demo</title>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  
+
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    #remotes {
+      float: left;
+      width: 40%;
+      margin-right: 9%;
+      margin-left: 1%
+    }
+    #remotes video {
+      width: 100%;
+    }
+    #localVideo {
+      float: left;
+      width: 40%;
+      margin-left: 9%;
+      margin-rigth: 1%;
+    }
+  </style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="simplewebrtc.min.js"></script>
+  <script>
+    // grab the room from the URL
+    var room = "theOnlyRoom"; // location.search && location.search.split('?')[1];
+
+     // create our webrtc connection
+    var webrtc = new SimpleWebRTC({
+      // the id/element dom element that will hold "our" video
+      localVideoEl: 'localVideo',
+      // the id/element dom element that will hold remote videos
+      remoteVideosEl: 'remotes',
+      // immediately ask for camera access
+      autoRequestMedia: true,
+      log: true
+    });
+
+     // when it's ready, join if we got a room from the URL
+    webrtc.on('readyToCall', function () {
+      // you can name it anything
+      if (room) webrtc.joinRoom(room);
+    });
+  </script>
+</head>
+
+<body>
+
+  <div id="header">
+    <a href="../">Fun With Speech</a>
+  </div>
+
+  <div id="demo">
+
+    <h1 id="title">WebRTC</h1> 
+
+    <div style="width:100%;text-align:center; height:130px">
+      <video id="localVideo"></video>
+
+    <div id="remotes"></div>
+    </div>
+    <br>
+  </div>
+
+  <div id="footer" style="text-align:left;clear:both">
+    <ul>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/SimpleWebRTC/">View Source</a>
+      </li>
+      <li>
+        <a href="http://simplewebrtc.com/">SimpleWebRTC at GitHub</a>
+      </li>
+  </div>
+
+
+</body>
+
+</html>

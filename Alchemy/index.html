@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title>AlchemyAPI Demo</title>
+
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script language="javascript">
+    var nerColors = {
+      "Person": "red",
+      "StateOrCounty": "blue",
+      "City": "green"
+    };
+
+    function findEntities(inputText) {
+      var requestStr = "/~johndimm/alchemy/example/entities.php?txt=" 
+        + encodeURIComponent(inputText);
+
+      $.ajax({
+        url: requestStr,
+        context: this,
+        type: 'GET',
+        success: function (data, status) {
+          var results = JSON.parse(data);
+
+          for (i = 0; i < results.entities.length; i++) {
+            var name = results.entities[i].text;
+            var color = nerColors[results.entities[i].type];
+            inputText = inputText.replace(name, "<span style='color:" 
+              + color + "; font-weight:700'>" + name + "</span>");
+          }
+          $("#results").html(inputText);
+
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+
+  <div id="header">
+    <a href="../">Fun With Speech</a>
+  </div>  
+  
+  <div id="demo">
+    <h1>Named Entity Recognition</h1>
+
+    <input id="query" type="text" size="50"></input>
+    <button onclick='findEntities($("#query").val())'>find entities</button>
+    <br>Example:
+    <a id="example" href='javascript:findEntities($("#example").text())'>Barbara Mouchabouche moved with her husband Bob from Everett, Washington to Olympia</a>
+
+    <div id="results"></div>
+  </div>
+    
+  <div id="footer">
+    <ul>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/Alchemy/">View Source</a>
+      </li>
+      <li>
+        <a href="http://www.alchemyapi.com/api/register.html">Register for a free Alchemy API developer key</a>
+      </li>
+  </div>
+
+
+</body>
+</html>

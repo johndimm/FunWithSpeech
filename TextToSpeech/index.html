@@ -1,0 +1,62 @@
+<html>
+
+<head>
+  <title>Text-to-Speech Demo</title>
+
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
+  <script src="tts.js"></script>
+
+</head>
+
+<body>
+
+  <div id="header">
+    <a href="../">Fun With Speech</a>
+  </div>  
+  
+  <div id="demo">
+
+  <h1>text-to-speech</h1>
+  from Google Translate
+
+
+    <ul style="text-align:left">
+      <input id="userText" size="40" />
+      <button onclick="speak($('#userText').val(), 'fr');">Say it</button>
+      Examples:
+       <li>
+        <a id="ex4" href="javascript:speak($('#ex4').text(), 'en');">hello</a>
+      </li>
+      <li>
+        <a id="ex2" href="javascript:speak($('#ex2').text(), 'fr');">je suis desole mais la maison est un vrai bordel.</a>
+      </li>
+      <li>
+        <a id="ex1" href="javascript:speak($('#ex1').text(), 'en');">When there are more than 100 characters, you have to split the source text into chunks, and speak each chunk in sequence. And yes, it can sound funny.  It's as if one sentence ends mid-sentence, and then another one starts up.</a>
+      </li>
+
+      <li>
+        <a id="ex3" href="javascript:speak($('#ex3').text(), 'fr');">At what time is the meeting?</a>
+      </li>
+    </ul>
+
+  
+  </div>
+
+  <div id="footer">
+    <ul>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/TextToSpeech/">View Source</a>
+      </li>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/TextToSpeech/tts.js">tts.js</a>
+      </li>
+      <li>
+        <a href="http://techcrunch.com/2009/12/14/the-unofficial-google-text-to-speech-api/">The Unofficial Google Text-To-Speech API</a>
+      </li>
+  </div>
+
+</body>
+
+</html>

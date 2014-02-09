@@ -1,0 +1,82 @@
+<html>
+<head>
+  <title>Flickr Demo</title>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script language="javascript">
+    function searchFlickr(query, nRequestedHits, renderFunction) {
+      var priority = 0;
+
+      var queryEncoded = encodeURIComponent(query).replace("'", "%20");
+      var flickrApiKey = "8e178f18275aa59d60ee059fe7648775";
+
+      var requestTemplate = "https://secure.flickr.com/services/rest/?method=flickr.photos.search&extras=url_l%2C+url_m%2C+url_s&api_key={api_key}&text={query}&format=json&per_page={nRequestedHits}&sort={relevance}&content_type=1&jsoncallback=?";
+
+      var requestStr = requestTemplate
+        .replace("{query}", queryEncoded)
+        .replace("{nRequestedHits}", nRequestedHits)
+        .replace("{api_key}", flickrApiKey)
+        .replace("{relevance}", "interestingness-desc");
+
+
+      $.ajax({
+        url: requestStr,
+        type: "GET",
+        cache: true,
+        dataType: 'jsonp',
+        success: function (data) {
+          renderFunction(data);
+        }
+      });
+      return true;
+    }
+
+    function search(query) {
+      var numHits = 9;
+      searchFlickr(query, numHits, function (data) {
+        $("#results").html('');
+        for (i = 0; i < data.photos.photo.length; i++) {
+          var img = $('<img />').attr({
+            'src': data.photos.photo[i].url_s,
+            'style': 'margin:10px'
+          });
+          $("#results").append(img);
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+
+  <div id="header">
+    <a href="../">Fun With Speech</a>
+  </div>
+
+  <div id="demo">
+    <h1>Flickr Search</h1>
+
+    <input id="query" type="text" size="40"></input>
+    <button onclick='search($("#query").val())'>search</button>
+    <br>Example:
+    <a id="example" href='javascript:search($("#example").text())'>A day at the beach</a>
+
+    <div id="results"></div>
+  </div>
+  
+  
+  <div id="footer">
+    <ul>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/Flickr/">View Source</a>
+      </li>
+      <li>
+        <a href="http://www.flickr.com/services/api/flickr.photos.search.html">How to use the flickr.photos.search API</a>
+      </li>
+  </div>
+
+</body>
+
+</html>

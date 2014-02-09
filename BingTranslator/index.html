@@ -1,0 +1,120 @@
+<html>
+
+<head>
+  <title>Bing Translator</title>
+
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script language="javascript">
+    var g_token = '';
+
+    function onLoad() {
+      // Get an access token now.  Good for 10 minutes.
+      getToken();
+      // Get a new one every 9 minutes.
+      setInterval(getToken, 9 * 60 * 1000);
+    }
+
+    function getToken() {
+      var requestStr = "token.php";
+
+      $.ajax({
+        url: requestStr,
+        type: "GET",
+        cache: true,
+        dataType: 'json',
+        success: function (data) {
+          g_token = data.access_token;
+        }
+      });
+    }
+
+    function translate(text, from, to) {
+      var p = new Object;
+      p.text = text;
+      p.from = from;
+      p.to = to;
+      p.oncomplete = 'ajaxTranslateCallback'; // <-- a major puzzle solved.  Who would have guessed you register the jsonp callback as oncomplete?
+      p.appId = "Bearer " + g_token; // <-- another major puzzle.  Instead of using the header, we stuff the token into the deprecated appId.
+      var requestStr = "//api.microsofttranslator.com/V2/Ajax.svc/Translate";
+
+      window.ajaxTranslateCallback = function (response) {
+        // Display translated text in the right textarea.
+        $("#target").text(response);
+      }
+
+      $.ajax({
+        url: requestStr,
+        type: "GET",
+        data: p,
+        dataType: 'jsonp',
+        cache: true
+      });
+    }
+
+
+    function translateSourceTarget() {
+      // Translate the text typed by the user into the left textarea.
+      var src = $("#source").val();
+      translate(src, "en", "fr");
+    }
+  </script>
+  <style>
+    #source,
+    #target {
+      float: left;
+      width: 170px;
+      height: 100px;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid black;
+    }
+    #translateButton {
+      margin: 10px;
+      height: 30px;
+    }
+  </style>
+</head>
+
+<body onload="onLoad();">
+
+  <div id="header">
+    <a href="../">Fun With Speech</a>
+  </div>
+
+  <div id="demo" style="height:260px">
+    <h1>Bing Translator</h1>
+    
+    <div style="clear:both">
+      <div style="float:left">
+        <textarea id="source">Text in this box will be translated.</textarea>
+        <br>English
+      </div>
+      <div style="float:left">
+        <textarea id="target"></textarea>
+        <br>French
+      </div>
+    </div>
+    
+    <button id="translateButton" onclick="translateSourceTarget();">Translate</button>     
+    
+  </div>
+
+  <div id="footer" style="text-align:left; clear:both;">
+    <ul>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/BingTranslator/">View Source</a>
+      </li>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/BingTranslator/token_nokeys.php">token.php</a>
+      </li>
+      <li>
+        <a href="https://datamarket.azure.com/dataset/bing/microsofttranslator">Registor for the Microsoft Translator API at Windows Azure Marketplace</a>
+      </li>
+  </div>
+
+
+</body>
+
+</html>

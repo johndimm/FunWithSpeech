@@ -1,0 +1,44 @@
+    body {
+      font-family: sans-serif;
+      background-color:#EEEEEE;
+    }
+    
+    #header {
+      margin:30px;
+    }
+    
+    #footer {
+      text-align:left
+    }
+    
+    #demo {      
+      text-align: center;
+      width:400px;
+      margin-left:50px;
+      margin-top:30px;
+      background-color:white;
+      padding:50px;
+      padding-top:20px;
+      border-radius: 15px;
+      border:1px solid #AAAAAA;
+    }
+    
+    #results {
+      font-size: 20px;
+      font-weight: bold;
+      border: 1px solid #bbb;
+      padding: 15px;
+      margin-top: 10px;
+      text-align: left;
+      vertical-align: text-top;
+      min-height: 150px;
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+    
+    #mic_button {
+      border: 0;
+      background-color: transparent;
+      outline-color: transparent;
+    }

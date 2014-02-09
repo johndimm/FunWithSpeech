@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <title>Bing Search</title>
+
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
+  <script src="bingSearch.js"></script>
+
+  <script language="javascript">
+    function search(query) {
+      bingImageSearch(query, 10, function (data) {
+        $("#results").html('');
+        for (i = 0; i < data.d.results.length; i++) {
+          var img = $('<img />').attr({
+            'src': data.d.results[i].Thumbnail.MediaUrl,
+            'style': 'margin:5px',
+            'width': '100%'
+          });
+          $("#results").append(img);
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+
+  <div id="header">
+    <a href="../">Fun With Speech</a>
+  </div>
+
+  <div id="demo">
+  <h1>Bing Image Search</h1>
+    <input id="query" type="text" size="40"></input>
+    <button onclick="search($(" #query ").val())">search</button>
+    <br>Example:
+    <a id="example" href='javascript:search($("#example").text())'>Scarlett Johanson</a>
+
+    <div id="results"></div>
+  </div>
+  
+  
+  <div id="footer">
+    <ul>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/BingSearch/">View Source</a>
+      </li>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/BingSearch/bingSearch.js">bingSearch.js</a>
+      </li>
+      <li>
+        <a href="http://datamarket.azure.com/dataset/bing/search">Register for a Bing Search API developer key</a>
+      </li>
+  </div>
+
+
+</body>
+
+</html>

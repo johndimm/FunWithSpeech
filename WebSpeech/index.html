@@ -1,0 +1,76 @@
+<html>
+
+<head>
+  <title>Web Speech API Demo</title>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="webspeech.js"></script>
+
+  <script language="javascript">
+    // global variable, unfortunately referenced by name in webspeech.js
+    var reco = null;
+
+    $(document).ready(function () {
+      reco = new WebSpeechRecognition();
+      reco.statusText('status');
+      reco.statusImage('status_img');
+      reco.finalResults('final_span');
+      reco.interimResults('interim_span');
+      reco.continuous = true;
+      reco.maxAlternatives = 10;
+      reco.lang = ['English', ['en-US', 'United States']];
+    });
+
+    function microphoneButton() {
+      reco.toggleStartStop();
+    }
+  </script>
+
+  <style>
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="header">
+    <a href="../">Fun With Speech</a>
+  </div>  
+  
+  <div id="demo">
+    <h1>Web Speech API</h1>    
+    <div>
+      <button id="mic_button" onclick="microphoneButton()">
+        <img id="status_img" src="mic.gif" alt="Start">
+      </button>
+    </div>
+
+    <div id="status"></div>
+
+    <div id="results">
+      <span id="final_span" style="color:black"></span>
+      <span id="interim_span" style="color:gray"></span>
+    </div>
+  </div>
+  
+  
+
+  <div id="footer">
+    <ul>
+      <li>
+        <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/WebSpeech/">View Source</a>
+      </li>
+      <li>
+        Find <a href="view-source:https://dprhcp108.doteasy.com/~johndimm/FunWithSpeech/WebSpeech/webspeech.js">webspeech.js</a>
+       </li>
+       <li>       
+        at
+        <a href="https://docs.google.com/document/d/1vH9Zf86XNuqIwUFg5OJn56Q2qP3HeMEUoezx0NPQddY/edit">Google's Do-It-Yourself Codelab - SpeechTEK 2013</a>
+      </li>
+  </div>
+
+</body>
+
+</html>
